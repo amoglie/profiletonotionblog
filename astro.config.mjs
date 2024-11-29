@@ -1,10 +1,17 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-
-// Configuración principal de Astro
-export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
+const blogCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.date(),
+		author: z.string(),
+		image: z.object({
+			url: z.string(),
+			alt: z.string(),
+		}).optional(),
+		tags: z.array(z.string()).optional(),
+	}),
 });
+
+export const collections = {
+	blog: blogCollection,
+};
