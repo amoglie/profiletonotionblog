@@ -1,17 +1,17 @@
-const blogCollection = defineCollection({
-	schema: z.object({
-		title: z.string(),
-		description: z.string(),
-		pubDate: z.date(),
-		author: z.string(),
-		image: z.object({
-			url: z.string(),
-			alt: z.string(),
-		}).optional(),
-		tags: z.array(z.string()).optional(),
-	}),
-});
+import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 
-export const collections = {
-	blog: blogCollection,
-};
+export default defineConfig({
+	site: 'https://example.com',
+	integrations: [mdx(), sitemap()],
+	vite: {
+		logLevel: 'error', // Cambia el nivel de logs para reducir ruido
+		define: {
+			__VITE_IGNORE_WARNINGS__: true, // Opción personalizada para tu configuración
+		},
+		server: {
+			strictPort: true, // Opcional, mejora el comportamiento del servidor en desarrollo
+		},
+	},
+});
